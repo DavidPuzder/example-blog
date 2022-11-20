@@ -10,10 +10,10 @@
         "laravel/framework": "^9.19",
         "laravel/nova": "~4.0",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "fakerphp/faker": "^1.9.1"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.9.1",
         "knuckleswtf/scribe": "^4.6",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
