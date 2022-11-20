@@ -1,0 +1,311 @@
+openapi: 3.0.3
+info:
+  title: 'Example Blog'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://example-blog:8888'
+paths:
+  /api/login:
+    post:
+      summary: Login
+      operationId: login
+      description: 'Endpoint for logging existing users.'
+      parameters:
+        -
+          in: query
+          name: email
+          description: 'string User email.'
+          example: johnsky@example.net
+          required: true
+          schema:
+            type: string
+            description: 'string User email.'
+            example: johnsky@example.net
+        -
+          in: query
+          name: password
+          description: 'string User password.'
+          example: password123
+          required: true
+          schema:
+            type: string
+            description: 'string User password.'
+            example: password123
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: ''
+                  example: dolor
+                password:
+                  type: string
+                  description: ''
+                  example: repudiandae
+              required:
+                - email
+                - password
+      security: []
+  /api/register:
+    post:
+      summary: Register
+      operationId: register
+      description: 'Endpoint for creating new users.'
+      parameters:
+        -
+          in: query
+          name: name
+          description: 'string Username.'
+          example: 'John Sky'
+          required: true
+          schema:
+            type: string
+            description: 'string Username.'
+            example: 'John Sky'
+        -
+          in: query
+          name: email
+          description: 'string User email.'
+          example: johnsky@example.net
+          required: true
+          schema:
+            type: string
+            description: 'string User email.'
+            example: johnsky@example.net
+        -
+          in: query
+          name: password
+          description: 'string User password.'
+          example: password123
+          required: true
+          schema:
+            type: string
+            description: 'string User password.'
+            example: password123
+        -
+          in: query
+          name: password_confirmation
+          description: 'string User password confirmation.'
+          example: password123
+          required: true
+          schema:
+            type: string
+            description: 'string User password confirmation.'
+            example: password123
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Must be at least 3 characters. Must not be greater than 75 characters.'
+                  example: hztucfjekozz
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must be at least 3 characters. Must not be greater than 75 characters.'
+                  example: michel63@example.org
+                password:
+                  type: string
+                  description: ''
+                  example: rerum
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/password-email:
+    post:
+      summary: 'Change Password'
+      operationId: changePassword
+      description: 'Endpoint for sending link to reset password.'
+      parameters:
+        -
+          in: query
+          name: email
+          description: 'string User email.'
+          example: johnsky@example.net
+          required: true
+          schema:
+            type: string
+            description: 'string User email.'
+            example: johnsky@example.net
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address. Must be at least 3 characters. Must not be greater than 75 characters.'
+                  example: jweimann@example.net
+              required:
+                - email
+      security: []
+  /api/posts:
+    get:
+      summary: 'Index Posts'
+      operationId: indexPosts
+      description: "It's paginated post list."
+      parameters:
+        -
+          in: query
+          name: perPage
+          description: 'Posts per page. Default 15.'
+          example: 5
+          required: false
+          schema:
+            type: integer
+            description: 'Posts per page. Default 15.'
+            example: 5
+        -
+          in: query
+          name: page
+          description: 'Current page. Default 1.'
+          example: 3
+          required: false
+          schema:
+            type: integer
+            description: 'Current page. Default 1.'
+            example: 3
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Posts
+  '/api/posts/{id}':
+    get:
+      summary: 'Get Post'
+      operationId: getPost
+      description: "It's post detail."
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Posts
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the post.'
+        example: 1
+        required: true
+        schema:
+          type: integer
+tags:
+  -
+    name: Authentication
+    description: ''
+  -
+    name: Posts
+    description: ''
